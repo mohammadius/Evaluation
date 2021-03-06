@@ -1,0 +1,77 @@
+﻿{
+	"ContextClassName": "EvaluationContext",
+	"ContextNamespace": null,
+	"DefaultDacpacSchema": null,
+	"FilterSchemas": false,
+	"IncludeConnectionString": true,
+	"ModelNamespace": null,
+	"OutputContextPath": "TestModels",
+	"OutputPath": "TestModels",
+	"ProjectRootNamespace": "Evaluation",
+	"Schemas": null,
+	"SelectedHandlebarsLanguage": 0,
+	"SelectedToBeGenerated": 0,
+	"Tables": [
+		{
+			"Name": "[dbo].[tblBlackList]",
+			"ObjectType": 0
+		},
+		{
+			"Name": "[dbo].[tblCenter]",
+			"ObjectType": 0
+		},
+		{
+			"Name": "[dbo].[tblEvaluator]",
+			"ObjectType": 0
+		},
+		{
+			"Name": "[dbo].[tblPosition]",
+			"ObjectType": 0
+		},
+		{
+			"Name": "[dbo].[tblQuestion]",
+			"ObjectType": 0
+		},
+		{
+			"Name": "[dbo].[tblQuestionDetail]",
+			"ObjectType": 0
+		},
+		{
+			"Name": "[dbo].[tblSection]",
+			"ObjectType": 0
+		},
+		{
+			"Name": "[dbo].[tblSectionQuestion]",
+			"ObjectType": 0
+		},
+		{
+			"Name": "[dbo].[tblStaff]",
+			"ObjectType": 0
+		},
+		{
+			"Name": "[dbo].[tblStaffPosition]",
+			"ObjectType": 0
+		},
+		{
+			"Name": "[dbo].[vwEvaluator]",
+			"ObjectType": 3
+		},
+		{
+			"Name": "[dbo].[vwQuestion]",
+			"ObjectType": 3
+		},
+		{
+			"Name": "[dbo].[vwStaff]",
+			"ObjectType": 3
+		}
+	],
+	"UseBoolPropertiesWithoutDefaultSql": false,
+	"UseDatabaseNames": false,
+	"UseDbContextSplitting": false,
+	"UseFluentApiOnly": true,
+	"UseHandleBars": false,
+	"UseInflector": false,
+	"UseLegacyPluralizer": false,
+	"UseNodaTime": false,
+	"UseSpatial": false
+}

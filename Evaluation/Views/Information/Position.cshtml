@@ -1,0 +1,42 @@
+﻿@using Evaluation.TestModels
+<h2>سمت</h2>
+
+@(Html.DevExtreme().DataGrid<TblPosition>()
+	.ShowBorders(true)
+	.RtlEnabled(true)
+	.RowAlternationEnabled(true)
+	.NoDataText("بدون اطلاعات")
+	.Editing(e =>
+	{
+		e.Mode(GridEditMode.Row);
+		e.AllowAdding(true);
+		e.AllowUpdating(true);
+		e.AllowDeleting(true);
+		e.Popup(p =>
+		{
+			p.RtlEnabled(true);
+			p.CloseOnOutsideClick(true);
+		});
+
+		e.Texts(t =>
+		{
+			t.DeleteRow("حذف");
+			t.EditRow("تغییر");
+			t.AddRow("اضافه کردن");
+			t.SaveRowChanges("ثبت");
+			t.CancelRowChanges("انصراف");
+			t.ConfirmDeleteMessage("این رکورد حذف شود؟");
+		});
+	})
+	.Sorting(s =>
+	{
+		s.AscendingText("مرتب کردن صعودی");
+		s.DescendingText("مرتب کردن نزولی");
+		s.ClearText("حذف مرتب کردن");
+	})
+	.DataSource(d => d.Array())
+	.Columns(columns =>
+	{
+		columns.AddFor(m => m.MTitle).Caption("عنوان");
+	})
+	)

@@ -1,0 +1,59 @@
+﻿@{
+	Layout = "_MasterLayout";
+}
+@section Style
+{
+	@await RenderSectionAsync("Style", false)
+}
+@section Script
+{
+	@await RenderSectionAsync("Script", false)
+}
+
+<div class="row">
+	<div class="col-md-3 mb-4 text-align-start">
+		<div class="shadow py-2 bg-white rounded">
+			@(Html.DevExtreme().Accordion()
+				.RtlEnabled(true)
+				.AnimationDuration(200)
+				.ActiveStateEnabled(false)
+				.FocusStateEnabled(false)
+				.Items(items =>
+				{
+					items.Add()
+						.Title("اطلاعات پایه")
+						.Template(@<text>
+							          @(Html.DevExtreme().List()
+								          .Height("100%")
+								          .DataSource(TestData.Options["BasicInformation"])
+								          .ItemTemplate("<a href=\"<%- Href %>\"><%- DisplayName %></a>")
+								          )
+						           </text>);
+					items.Add()
+						.Title("تنظیمات حساب کاربری")
+						.Template(@<text>
+							          @(Html.DevExtreme().List()
+								          .Height("100%")
+								          .DataSource(TestData.Options["UserSetting"])
+								          .ItemTemplate("<a href=\"<%- Href %>\"><%- DisplayName %></a>")
+								          )
+						           </text>);
+					items.Add()
+						.Title("گزارشات")
+						.Template(@<text>
+							          @(Html.DevExtreme().List()
+								          .Height("100%")
+								          .DataSource(TestData.Options["Report"])
+								          .ItemTemplate("<a href=\"<%- Href %>\"><%- DisplayName %></a>")
+								          )
+						           </text>);
+				})
+				)
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="main-container shadow p-4 bg-white rounded">
+			@RenderBody()
+		</div>
+	</div>
+</div>

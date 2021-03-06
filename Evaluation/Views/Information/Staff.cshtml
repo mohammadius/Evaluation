@@ -1,0 +1,141 @@
+﻿@using MD.PersianDateTime.Standard
+@using Evaluation.Models.ViewModels
+<h2>کارمند</h2>
+
+@(Html.DevExtreme().DataGrid<StaffViewModel>()
+	.ShowBorders(true)
+	.RtlEnabled(true)
+	.RowAlternationEnabled(true)
+	.NoDataText("بدون اطلاعات")
+	.RemoteOperations(true)
+	.OnEditorPreparing("onEditorPreparing")
+	.Editing(e =>
+	{
+		e.Mode(GridEditMode.Row);
+		e.AllowAdding(true);
+		e.AllowUpdating(true);
+		e.AllowDeleting(true);
+		e.Popup(p =>
+		{
+			p.RtlEnabled(true);
+			p.CloseOnOutsideClick(true);
+		});
+
+		e.Texts(t =>
+		{
+			t.DeleteRow("حذف");
+			t.EditRow("تغییر");
+			t.AddRow("اضافه کردن");
+			t.SaveRowChanges("ثبت");
+			t.CancelRowChanges("انصراف");
+			t.ConfirmDeleteMessage("این رکورد حذف شود؟");
+		});
+	})
+	.Sorting(s =>
+	{
+		s.AscendingText("مرتب کردن صعودی");
+		s.DescendingText("مرتب کردن نزولی");
+		s.ClearText("حذف مرتب کردن");
+	})
+	.DataSource(d => d.Mvc().Controller("Staffs").LoadAction("Get"))
+	.Columns(columns =>
+	{
+		columns.AddFor(m => m.FirstName).Caption("نام");
+		columns.AddFor(m => m.LastName).Caption("نام خانوادگی");
+		columns.AddFor(m => m.PersianBirthDate).Caption("تاریخ تولد").EditCellTemplate(new TemplateName("DateInputTemplate"));
+		columns.AddFor(m => m.PersianEmploymentDate).Caption("تاریخ استخدام").EditCellTemplate(new TemplateName("DateInputTemplate"));
+		columns.AddFor(m => m.CenterId).Caption("مرکز")
+			.SetCellValue("setCenterValue")
+			.Lookup(lookup => lookup
+				.DataSource(d => d.Mvc().Controller("Centers").LoadAction("Get").Key("Id"))
+				.DisplayExpr("Title")
+				.ValueExpr("Id")
+			);
+		columns.AddFor(m => m.SectionId).Caption("بخش")
+			.Lookup(lookup => lookup
+				.DataSource("getSections")
+				.DisplayExpr("Title")
+				.ValueExpr("Id")
+			);
+	})
+	)
+
+@using (Html.DevExtreme().NamedTemplate("DateInputTemplate"))
+{
+	@(Html.DevExtreme().TextBox()
+		//.RtlEnabled(true)
+		.Value(new JS("value"))
+		.OnValueChanged("(e) => { setValue(e.value); }")
+		.Placeholder(PersianDateTime.Now.ToShortDateString())
+		.Mask("0000-00-00")
+		.MaskRules(new { X = new JS("/[0-9]/") })
+		.UseMaskedValue(true)
+		)
+}
+
+@section Script
+{
+	<script>
+		const onEditorPreparing = (e) => {
+			if (e.parentType === "dataRow" && e.dataField === "SectionId") {
+				e.editorOptions.disabled = (typeof e.row.data.CenterId !== "number");
+			}
+		}
+		const getSections = (options) => {
+			return {
+				store: DevExpress.data.AspNet.createStore({
+					key: "Id",
+					loadUrl: '@Url.Action("Get", "Sections", new { httproute = true })'
+				}),
+				filter: options.data ? ["CenterId", "=", options.data.CenterId] : null
+			};
+		}
+		const setCenterValue = (rowData, value) => {
+			rowData.CenterId = value;
+			rowData.SectionId = null;
+		}
+	</script>
+}
+
+@*@section Style
+	{
+		<link rel="stylesheet" href="~/persianDate/persian-datepicker.min.css" />
+	}
+
+	@section Script
+	{
+		<script src="~/persianDate/persian-date.min.js"></script>
+		<script src="~/persianDate/persian-datepicker.min.js"></script>
+		<script type="text/javascript">
+			$("#employmentDatePicker").persianDatepicker({ ...pDatepickerSetting, altField: "#employmentDateInput" });
+			let pDatepickerSetting = {
+				inline: false,
+				format: "YYYY/MM/DD",
+				viewMode: "day",
+				initialValue: true,
+				autoClose: true,
+				position: "auto",
+				altFormat: "YYYY/MM/DD",
+				//altField: "#altField",
+				onlyTimePicker: false,
+				onlySelectOnDate: true,
+				calendarType: "persian",
+				observer: true,
+				calendar: {
+					persian: {
+						locale: "en",
+						showHint: true,
+						leapYearMode: "algorithmic"
+					},
+					gregorian: {
+						locale: "en",
+						showHint: true
+					}
+				},
+				timePicker: {
+					enabled: false
+				},
+				responsive: true
+			};
+		</script>
+	}*@

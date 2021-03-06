@@ -1,0 +1,130 @@
+﻿@{
+	Layout = "_MasterLayout";
+}
+
+@section Style
+{
+	<environment include="Development">
+		<link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+	</environment>
+
+	<environment exclude="Development">
+		<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+	</environment>
+
+	<style>
+		.login-box {
+			max-width: 32rem;
+		}
+
+		.form-group .form-control {
+			padding-right: 2.375rem;
+			color: black;
+		}
+
+		.form-group .form-control-icon {
+			position: absolute;
+			z-index: 2;
+			display: block;
+			width: 2.375rem;
+			height: 2.375rem;
+			line-height: 2.375rem;
+			text-align: center;
+			pointer-events: none;
+			color: #1E1E1E;
+		}
+	</style>
+}
+
+<div class="container">
+	<div class="login-box shadow mx-auto mt-4 px-4 py-3 bg-white rounded">
+		<h2 class="text-center mt-2 mb-3">ورود به سامانه</h2>
+		@using (Html.BeginForm("SignIn", "Home", new { }, FormMethod.Post, true, null))
+		{
+			<div class="form-group">
+				@Html.Label("username", "نام کاربری")
+				<span class="fa fa-user form-control-icon"></span>
+				@Html.TextBox("username", "", new { @class = "form-control", placeholder = "نام کاربری", required = true })
+			</div>
+			<div class="form-group">
+				@Html.Label("password", "رمز عبور")
+				<span class="fa fa-key form-control-icon"></span>
+				@Html.Password("password", "", new { @class = "form-control", placeholder = "رمز عبور", required = true })
+			</div>
+
+			<dnt-captcha asp-captcha-generator-max="30"
+							 asp-captcha-generator-min="1"
+							 asp-captcha-generator-language="Persian"
+							 asp-captcha-generator-display-mode="SumOfTwoNumbers"
+							 asp-use-relative-urls="true"
+							 asp-font-name="IranSans"
+							 asp-dir="rtl"
+							 asp-font-size="20"
+							 asp-fore-color="#333"
+							 asp-back-color="#ccc"
+							 asp-text-box-class="text-box form-control"
+							 asp-text-box-template="<div class='form-group'><label for='passwordInput'>کد امنیتی</label><span class='fa fa-lock form-control-icon'></span>{0}</div>"
+							 asp-validation-message-class="text-danger"
+							 asp-refresh-button-class="fas fa-redo btn-sm"
+							 asp-use-noise="false" />
+			<button type="submit" class="btn btn-primary">ورود</button>
+		}
+	</div>
+</div>
+
+
+@*<h2>مرکز</h2>*@
+@*
+	@(Html.DevExtreme().DataGrid<TestCenter>()
+		.ShowBorders(true)
+		.RtlEnabled(true)
+	.RowAlternationEnabled(true)
+		.Editing(e =>
+		{
+			e.Mode(GridEditMode.Row);
+			e.AllowAdding(true);
+			e.AllowUpdating(true);
+			e.AllowDeleting(true);
+
+			e.Texts(t =>
+			{
+				t.DeleteRow("حذف");
+				t.EditRow("تغییر");
+				t.AddRow("اضافه کردن");
+				t.SaveRowChanges("ذخیره");
+				t.CancelRowChanges("بازگشت");
+				t.ConfirmDeleteMessage("این رکورد حذف شود؟");
+			});
+		})
+		.DataSource(d => d.Array().Data(TestData.Centers))
+		//.DataSource(d => d.Mvc().Controller("TestCenterSection").LoadAction("Centers"))
+		.Columns(columns =>
+		{
+			columns.AddFor(m => m.MTitle).Caption("عنوان");
+			columns.AddFor(m => m.Address).Caption("آدرس");
+		})
+		//.MasterDetail(md =>
+		//{
+		//	md.Enabled(true);
+		//	md.Template(new TemplateName("CenterSection-Detail"));
+		//})
+		)
+*@
+@*@using (Html.DevExtreme().NamedTemplate("CenterSection-Detail"))
+	{
+		@(Html.DevExtreme().DataGrid<TestSection>()
+			.ShowBorders(true)
+			.RtlEnabled(true)
+			.DataSource(d => d.Mvc()
+				.Controller("TestCenterSection")
+				.LoadAction("Sections")
+				.LoadParams(new {centerId = new JS("data.Id")})
+				.Key("Id"))
+			.Columns(columns =>
+			{
+				columns.AddFor(m => m.Id).Caption("کد بخش");
+				columns.AddFor(m => m.MTitle).Caption("عنوان بخش");
+				columns.AddFor(m => m.FkCenter).Caption("مرکز بخش");
+			}))
+	}*@
+
