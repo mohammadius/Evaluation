@@ -1,0 +1,147 @@
+﻿@using Evaluation.Models.ViewModels
+<h2>پرسش</h2>
+
+@(Html.DevExtreme().DataGrid<QuestionDetailViewModel>()
+	.ShowBorders(true)
+	.RtlEnabled(true)
+	.RowAlternationEnabled(true)
+	.NoDataText("بدون اطلاعات")
+	.Editing(e =>
+	{
+		e.Mode(GridEditMode.Row);
+		e.AllowAdding(true);
+		e.AllowUpdating(true);
+		e.AllowDeleting(true);
+		e.Popup(p =>
+		{
+			p.RtlEnabled(true);
+			p.CloseOnOutsideClick(true);
+		});
+
+		e.Texts(t =>
+		{
+			t.DeleteRow("حذف");
+			t.EditRow("تغییر");
+			t.AddRow("اضافه کردن");
+			t.SaveRowChanges("ثبت");
+			t.CancelRowChanges("انصراف");
+			t.ConfirmDeleteMessage("این رکورد حذف شود؟");
+		});
+	})
+	.Sorting(s =>
+	{
+		s.AscendingText("مرتب کردن سعودی");
+		s.DescendingText("مرتب کردن نزولی");
+		s.ClearText("حذف مرتب کردن");
+	})
+	//.DataSource(d => d.Mvc().Controller("QuestionDetails").LoadAction("Get"))
+	.DataSource(d => d.Array().Data(TestData.QuestionDetails))
+	.Columns(columns =>
+	{
+		columns.AddFor(m => m.Title).Caption("عنوان سوال");
+		columns.AddFor(m => m.Options).Caption("گزینه ها")
+			.EditCellTemplate(new TemplateName("DropDownBoxTemplate"));
+		columns.AddFor(m => m.Coefficient).Caption("ضریب").Width(100);
+	})
+	.OnRowInserting("OnRowInserting")
+	.OnEditingStart("OnEditingStart")
+	.OnInitNewRow("OnInitNewRow")
+	.OnRowUpdating("OnRowUpdating")
+	)
+
+@using (Html.DevExtreme().NamedTemplate("DropDownBoxTemplate"))
+{
+	@(Html.DevExtreme().DropDownBox()
+		.ContentTemplate(new TemplateName("ContentTemplate"))
+		.Value(new JS("value"))
+		.ValueExpr("Options")
+		.DisplayExpr("Options")
+		.Option("setValue", new JS("setValue"))
+		)
+}
+
+@using (Html.DevExtreme().NamedTemplate("ContentTemplate"))
+{
+	@(Html.DevExtreme().DataGrid()
+		.ID("OptionsTable")
+		.DataSource(new JS("optionsValues"))
+		.RemoteOperations(true)
+		.ShowBorders(true)
+		.RtlEnabled(true)
+		.Columns(c =>
+		{
+			c.Add().DataField("Option").Caption("گزینه");
+			c.Add().DataField("Value").DataType(GridColumnDataType.Number).Caption("مقدار");
+		})
+		.Editing(e =>
+		{
+			e.AllowUpdating(true);
+			e.AllowAdding(false);
+			e.AllowDeleting(false);
+			e.Mode(GridEditMode.Cell);
+		})
+		.Scrolling(s => s.Mode(GridScrollingMode.Virtual))
+		.RemoteOperations(true)
+		.OnRowUpdated("() => { OptionsTable_OnRowUpdated(component) }")
+		)
+}
+
+@section Script
+{
+	<script type="text/javascript">
+		let editing = false;
+		let optionsValues = [
+			{ Option: "گزینه 1", Value: 1 },
+			{ Option: "گزینه 2", Value: 2 },
+			{ Option: "گزینه 3", Value: 3 },
+			{ Option: "گزینه 4", Value: 4 },
+			{ Option: "گزینه 5", Value: 5 }
+		];
+		optionsValues = null;
+
+		const OnRowInserting = (e) => {
+			e.data.Options = optionsValues.map(data => { return `${data.Option}=${data.Value}` }).join(";");
+		}
+
+		const OnInitNewRow = (e) => {
+			editing = false;
+			optionsValues = [
+				{ Option: "گزینه 1", Value: 1 },
+				{ Option: "گزینه 2", Value: 2 },
+				{ Option: "گزینه 3", Value: 3 },
+				{ Option: "گزینه 4", Value: 4 },
+				{ Option: "گزینه 5", Value: 5 }
+			];
+		}
+
+		const OnEditingStart = (e) => {
+			editing = true;
+			optionsValues = e.data.Options.split(";").map(o => {
+				const ov = o.split("=");
+				return { Option: ov[0], Value: +ov[1] }
+			});;
+		}
+
+		const OnRowUpdating = (e) => {
+			if (!e.newData.Coefficient) {
+				e.newData.Coefficient = e.oldData.Coefficient;
+			}
+
+			if (!e.newData.Title) {
+				e.newData.Title = e.oldData.Title;
+			}
+
+			e.newData.Options = optionsValues.map(data => { return `${data.Option}=${data.Value}` }).join(";");
+
+			e.cancel = false;
+		}
+
+		const OptionsTable_OnRowUpdated = (component) => {
+			var setValue = component.option('setValue');
+
+			setValue({
+				Options: optionsValues.map(data => { return `${data.Option}=${data.Value}` }).join(";")
+			});
+		}
+	</script>
+}

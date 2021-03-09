@@ -37,7 +37,8 @@
 		s.DescendingText("مرتب کردن نزولی");
 		s.ClearText("حذف مرتب کردن");
 	})
-	.DataSource(d => d.Mvc().Controller("Staffs").LoadAction("Get"))
+	//.DataSource(d => d.Mvc().Controller("Staffs").LoadAction("Get"))
+	.DataSource(d => d.Array().Data(TestData.Staffs))
 	.Columns(columns =>
 	{
 		columns.AddFor(m => m.FirstName).Caption("نام");
@@ -68,28 +69,30 @@
 		.OnValueChanged("(e) => { setValue(e.value); }")
 		.Placeholder(PersianDateTime.Now.ToShortDateString())
 		.Mask("0000-00-00")
-		.MaskRules(new { X = new JS("/[0-9]/") })
+		.MaskRules(new {X = new JS("/[0-9]/")})
 		.UseMaskedValue(true)
 		)
 }
 
 @section Script
 {
-	<script>
+	<script type="text/javascript">
 		const onEditorPreparing = (e) => {
 			if (e.parentType === "dataRow" && e.dataField === "SectionId") {
 				e.editorOptions.disabled = (typeof e.row.data.CenterId !== "number");
 			}
 		}
+
 		const getSections = (options) => {
 			return {
 				store: DevExpress.data.AspNet.createStore({
 					key: "Id",
-					loadUrl: '@Url.Action("Get", "Sections", new { httproute = true })'
+					loadUrl: '@Url.Action("Get", "Sections", new {httproute = true})'
 				}),
 				filter: options.data ? ["CenterId", "=", options.data.CenterId] : null
 			};
 		}
+
 		const setCenterValue = (rowData, value) => {
 			rowData.CenterId = value;
 			rowData.SectionId = null;

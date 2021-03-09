@@ -30,6 +30,15 @@
 								          )
 						           </text>);
 					items.Add()
+						.Title("پرسش های ارزیابی")
+						.Template(@<text>
+							          @(Html.DevExtreme().List()
+								          .Height("100%")
+								          .DataSource(TestData.Options["Question"])
+								          .ItemTemplate("<a href=\"<%- Href %>\"><%- DisplayName %></a>")
+								          )
+						           </text>);
+					items.Add()
 						.Title("تنظیمات حساب کاربری")
 						.Template(@<text>
 							          @(Html.DevExtreme().List()

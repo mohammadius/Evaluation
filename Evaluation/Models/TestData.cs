@@ -23,7 +23,7 @@ namespace Evaluation.Models
 			new SectionViewModel {Id = 6, Title = "بخش 3، مرکز 2", CenterId = 2},
 			new SectionViewModel {Id = 7, Title = "بخش 1، مرکز 3", CenterId = 3},
 			new SectionViewModel {Id = 8, Title = "بخش 2، مرکز 3", CenterId = 3},
-			new SectionViewModel {Id = 9, Title = "بخش 3، مرکز 3", CenterId = 3},
+			new SectionViewModel {Id = 9, Title = "بخش 3، مرکز 3", CenterId = 3}
 		};
 
 		public static List<StaffViewModel> Staffs = new List<StaffViewModel>
@@ -55,7 +55,7 @@ namespace Evaluation.Models
 				CenterId = 1,
 				SectionId = 3
 			},
-			
+
 			new StaffViewModel
 			{
 				Id = "4",
@@ -83,7 +83,7 @@ namespace Evaluation.Models
 				CenterId = 2,
 				SectionId = 6
 			},
-			
+
 			new StaffViewModel
 			{
 				Id = "7",
@@ -110,7 +110,41 @@ namespace Evaluation.Models
 				PersianEmploymentDate = "1399-11-25",
 				CenterId = 3,
 				SectionId = 9
+			}
+		};
+
+		public static List<QuestionDetailViewModel> QuestionDetails = new List<QuestionDetailViewModel>
+		{
+			new QuestionDetailViewModel
+			{
+				Id = 1,
+				Title = "پرسش شماره یک",
+				Coefficient = 1,
+				Options = "گزینه 1=1;گزینه 2=2;گزینه 3=3;گزینه 4=4;گزینه 5=5"
 			},
+			new QuestionDetailViewModel
+			{
+				Id = 2,
+				Title = "پرسش شماره دو",
+				Coefficient = 1,
+				Options = "گزینه 1=1;گزینه 2=2;گزینه 3=3;گزینه 4=4;گزینه 5=5"
+			},
+			new QuestionDetailViewModel
+			{
+				Id = 3,
+				Title = "پرسش شماره سه",
+				Coefficient = 1,
+				Options = "گزینه 1=1;گزینه 2=2;گزینه 3=3;گزینه 4=4;گزینه 5=5"
+			}
+		};
+
+		public static List<QuestionSectionViewModel> QuestionSections = new List<QuestionSectionViewModel>
+		{
+			new QuestionSectionViewModel {Id = 1, QuestionDetailId = 1, CenterId = 1, SectionId = 2},
+			new QuestionSectionViewModel {Id = 2, QuestionDetailId = 2, CenterId = 1, SectionId = 1},
+			new QuestionSectionViewModel {Id = 3, QuestionDetailId = 3, CenterId = 2, SectionId = 2},
+			new QuestionSectionViewModel {Id = 4, QuestionDetailId = 2, CenterId = 3, SectionId = 3},
+			new QuestionSectionViewModel {Id = 5, QuestionDetailId = 3, CenterId = 3, SectionId = 1}
 		};
 
 		public static Dictionary<string, List<Option>> Options = new Dictionary<string, List<Option>>
@@ -123,6 +157,14 @@ namespace Evaluation.Models
 					new Option {Href = "/information/section", DisplayName = "بخش"},
 					new Option {Href = "/information/position", DisplayName = "سمت"},
 					new Option {Href = "/information/staff", DisplayName = "کارمند"}
+				}
+			},
+			{
+				"Question",
+				new List<Option>
+				{
+					new Option {Href = "/question/detail", DisplayName = "پرسش"},
+					new Option {Href = "/question/section", DisplayName = "پرسش مرکز"}
 				}
 			},
 			{
