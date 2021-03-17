@@ -1,7 +1,7 @@
-﻿@using Evaluation.Models.ViewModels
+﻿@using MD.PersianDateTime.Standard
 <h2>پرسش مرکز</h2>
 
-@(Html.DevExtreme().DataGrid<QuestionSectionViewModel>()
+@(Html.DevExtreme().DataGrid<VwSectionQuestion>()
 	.ShowBorders(true)
 	.RtlEnabled(true)
 	.RowAlternationEnabled(true)
@@ -36,11 +36,15 @@
 		s.DescendingText("مرتب کردن نزولی");
 		s.ClearText("حذف مرتب کردن");
 	})
-	//.DataSource(d => d.Mvc().Controller("QuestionSections").LoadAction("Get"))
-	.DataSource(d => d.Array().Data(TestData.QuestionSections))
+	.DataSource(d => d.Mvc().Controller("QuestionSections")
+		.LoadAction("Get")
+		.InsertAction("Insert")
+		.UpdateAction("Update")
+		.DeleteAction("Delete")
+		.Key("Id"))
 	.Columns(columns =>
 	{
-		columns.AddFor(m => m.QuestionDetailId).Caption("نام")
+		columns.AddFor(m => m.QuestionId).Caption("نام")
 			.Lookup(lookup => lookup
 				.DataSource(d => d.Mvc().Controller("QuestionDetails").LoadAction("Get").Key("Id"))
 				.DisplayExpr("Title")
@@ -59,8 +63,22 @@
 				.DisplayExpr("Title")
 				.ValueExpr("Id")
 			);
+		columns.AddFor(m => m.StartDate).Caption("تاریخ شروع").EditCellTemplate(new TemplateName("DateInputTemplate"));
 	})
 	)
+
+@using (Html.DevExtreme().NamedTemplate("DateInputTemplate"))
+{
+	@(Html.DevExtreme().TextBox()
+		//.RtlEnabled(true)
+		.Value(new JS("value"))
+		.OnValueChanged("(e) => { setValue(e.value); }")
+		.Placeholder(PersianDateTime.Now.ToShortDateString())
+		.Mask("0000-00-00")
+		.MaskRules(new {X = new JS("/[0-9]/")})
+		.UseMaskedValue(true)
+		)
+}
 
 @section Script
 {

@@ -1,77 +1,126 @@
 ﻿{
-	"ContextClassName": "EvaluationContext",
-	"ContextNamespace": null,
-	"DefaultDacpacSchema": null,
-	"FilterSchemas": false,
-	"IncludeConnectionString": true,
-	"ModelNamespace": null,
-	"OutputContextPath": "TestModels",
-	"OutputPath": "TestModels",
-	"ProjectRootNamespace": "Evaluation",
-	"Schemas": null,
-	"SelectedHandlebarsLanguage": 0,
-	"SelectedToBeGenerated": 0,
-	"Tables": [
-		{
-			"Name": "[dbo].[tblBlackList]",
-			"ObjectType": 0
-		},
-		{
-			"Name": "[dbo].[tblCenter]",
-			"ObjectType": 0
-		},
-		{
-			"Name": "[dbo].[tblEvaluator]",
-			"ObjectType": 0
-		},
-		{
-			"Name": "[dbo].[tblPosition]",
-			"ObjectType": 0
-		},
-		{
-			"Name": "[dbo].[tblQuestion]",
-			"ObjectType": 0
-		},
-		{
-			"Name": "[dbo].[tblQuestionDetail]",
-			"ObjectType": 0
-		},
-		{
-			"Name": "[dbo].[tblSection]",
-			"ObjectType": 0
-		},
-		{
-			"Name": "[dbo].[tblSectionQuestion]",
-			"ObjectType": 0
-		},
-		{
-			"Name": "[dbo].[tblStaff]",
-			"ObjectType": 0
-		},
-		{
-			"Name": "[dbo].[tblStaffPosition]",
-			"ObjectType": 0
-		},
-		{
-			"Name": "[dbo].[vwEvaluator]",
-			"ObjectType": 3
-		},
-		{
-			"Name": "[dbo].[vwQuestion]",
-			"ObjectType": 3
-		},
-		{
-			"Name": "[dbo].[vwStaff]",
-			"ObjectType": 3
-		}
-	],
-	"UseBoolPropertiesWithoutDefaultSql": false,
-	"UseDatabaseNames": false,
-	"UseDbContextSplitting": false,
-	"UseFluentApiOnly": true,
-	"UseHandleBars": false,
-	"UseInflector": false,
-	"UseLegacyPluralizer": false,
-	"UseNodaTime": false,
-	"UseSpatial": false
+   "CodeGenerationMode": 1,
+   "ContextClassName": "EvaluationContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": "Data",
+   "OutputPath": "Models",
+   "ProjectRootNamespace": "Evaluation",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[vwCenter]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[vwPosition]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[vwQuestion]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[vwSection]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[vwSectionQuestion]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[vwStaff]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[uspCenterDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspCenterInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspCenterUpdate]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspPositionDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspPositionInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspPositionUpdate]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspQuestionDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspQuestionInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspQuestionUpdate]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspSectionDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspSectionInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspSectionQuestionDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspSectionQuestionInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspSectionQuestionUpdate]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspSectionUpdate]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspStaffDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspStaffInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspStaffUpdate]",
+         "ObjectType": 1
+      }
+   ],
+   "UiHint": "DESKTOP-GH84BQK.Evaluation",
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseNoConstructor": false,
+   "UseNoNavigations": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSpatial": false
 }

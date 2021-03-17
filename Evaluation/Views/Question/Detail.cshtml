@@ -1,7 +1,6 @@
-﻿@using Evaluation.Models.ViewModels
-<h2>پرسش</h2>
+﻿<h2>پرسش</h2>
 
-@(Html.DevExtreme().DataGrid<QuestionDetailViewModel>()
+@(Html.DevExtreme().DataGrid<VwQuestion>()
 	.ShowBorders(true)
 	.RtlEnabled(true)
 	.RowAlternationEnabled(true)
@@ -34,14 +33,18 @@
 		s.DescendingText("مرتب کردن نزولی");
 		s.ClearText("حذف مرتب کردن");
 	})
-	//.DataSource(d => d.Mvc().Controller("QuestionDetails").LoadAction("Get"))
-	.DataSource(d => d.Array().Data(TestData.QuestionDetails))
+	.DataSource(d => d.Mvc().Controller("QuestionDetails")
+		.LoadAction("Get")
+		.InsertAction("Insert")
+		.UpdateAction("Update")
+		.DeleteAction("Delete")
+		.Key("Id"))
 	.Columns(columns =>
 	{
 		columns.AddFor(m => m.Title).Caption("عنوان سوال");
-		columns.AddFor(m => m.Options).Caption("گزینه ها")
+		columns.AddFor(m => m.Options).Caption("گزینه ها").Width(250)
 			.EditCellTemplate(new TemplateName("DropDownBoxTemplate"));
-		columns.AddFor(m => m.Coefficient).Caption("ضریب").Width(100);
+		columns.AddFor(m => m.Coefficiency).Caption("ضریب").Width(70);
 	})
 	.OnRowInserting("OnRowInserting")
 	.OnEditingStart("OnEditingStart")
@@ -71,7 +74,7 @@
 		.Columns(c =>
 		{
 			c.Add().DataField("Option").Caption("گزینه");
-			c.Add().DataField("Value").DataType(GridColumnDataType.Number).Caption("مقدار");
+			c.Add().DataField("Value").DataType(GridColumnDataType.Number).Caption("مقدار").Width(50);
 		})
 		.Editing(e =>
 		{

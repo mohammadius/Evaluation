@@ -1,7 +1,6 @@
-﻿@using Evaluation.Models.ViewModels
-<h2>مرکز</h2>
+﻿<h2>مرکز</h2>
 
-@(Html.DevExtreme().DataGrid<CenterViewModel>()
+@(Html.DevExtreme().DataGrid<VwCenter>()
 	.ShowBorders(true)
 	.RtlEnabled(true)
 	.RowAlternationEnabled(true)
@@ -31,7 +30,12 @@
 		s.DescendingText("مرتب کردن نزولی");
 		s.ClearText("حذف مرتب کردن");
 	})
-	.DataSource(d => d.Mvc().Controller("Centers").LoadAction("Get"))
+	.DataSource(d => d.Mvc().Controller("Centers")
+		.LoadAction("Get")
+		.InsertAction("Insert")
+		.UpdateAction("Update")
+		.DeleteAction("Delete")
+		.Key("Id"))
 	.Columns(columns =>
 	{
 		columns.AddFor(m => m.Title).Caption("عنوان");

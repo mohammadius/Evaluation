@@ -1,8 +1,7 @@
 ﻿@using MD.PersianDateTime.Standard
-@using Evaluation.Models.ViewModels
 <h2>کارمند</h2>
 
-@(Html.DevExtreme().DataGrid<StaffViewModel>()
+@(Html.DevExtreme().DataGrid<VwStaff>()
 	.ShowBorders(true)
 	.RtlEnabled(true)
 	.RowAlternationEnabled(true)
@@ -37,14 +36,18 @@
 		s.DescendingText("مرتب کردن نزولی");
 		s.ClearText("حذف مرتب کردن");
 	})
-	//.DataSource(d => d.Mvc().Controller("Staffs").LoadAction("Get"))
-	.DataSource(d => d.Array().Data(TestData.Staffs))
+	.DataSource(d => d.Mvc().Controller("Staffs")
+		.LoadAction("Get")
+		.InsertAction("Insert")
+		.UpdateAction("Update")
+		.DeleteAction("Delete")
+		.Key("Id"))
 	.Columns(columns =>
 	{
 		columns.AddFor(m => m.FirstName).Caption("نام");
 		columns.AddFor(m => m.LastName).Caption("نام خانوادگی");
-		columns.AddFor(m => m.PersianBirthDate).Caption("تاریخ تولد").EditCellTemplate(new TemplateName("DateInputTemplate"));
-		columns.AddFor(m => m.PersianEmploymentDate).Caption("تاریخ استخدام").EditCellTemplate(new TemplateName("DateInputTemplate"));
+		columns.AddFor(m => m.BirthDate).Caption("تاریخ تولد").EditCellTemplate(new TemplateName("DateInputTemplate"));
+		columns.AddFor(m => m.EmploymentDate).Caption("تاریخ استخدام").EditCellTemplate(new TemplateName("DateInputTemplate"));
 		columns.AddFor(m => m.CenterId).Caption("مرکز")
 			.SetCellValue("setCenterValue")
 			.Lookup(lookup => lookup

@@ -1,10 +1,8 @@
-using System.IO;
 using System.Linq;
 using DNTCaptcha.Core;
-using Evaluation.TestModels;
+using Evaluation.Data;
+using Evaluation.Utilities;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -17,23 +15,28 @@ namespace Evaluation
 {
 	public class Startup
 	{
-		private readonly IWebHostEnvironment _env;
-		
-		public Startup(IConfiguration configuration, IWebHostEnvironment env)
+		//private readonly IWebHostEnvironment _env;
+
+		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
-			_env = env;
 		}
 
 		private IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
-		public void ConfigureServices(IServiceCollection services)
+		public virtual void ConfigureServices(IServiceCollection services)
 		{
 			// Add framework services.
 			services
-				.AddControllersWithViews()
-				.AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+				.AddControllersWithViews(options =>
+				{
+					options.Filters.Add<OperationCancelledExceptionFilter>();
+				})
+				.AddJsonOptions(options =>
+				{
+					options.JsonSerializerOptions.PropertyNamingPolicy = null;
+				});
 
 			services.AddResponseCompression(options =>
 			{
@@ -43,7 +46,7 @@ namespace Evaluation
 					ResponseCompressionDefaults.MimeTypes.Concat(
 						new[] { "text/javascript" });
 			});
-			
+
 			services.AddDNTCaptcha(options =>
 			{
 				options.UseCookieStorageProvider();
@@ -52,7 +55,7 @@ namespace Evaluation
 
 			services.AddDbContext<EvaluationContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("EvaluationContext")));
-			
+
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 			{
 				options.LoginPath = "/";

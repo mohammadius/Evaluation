@@ -34,7 +34,12 @@
 		s.DescendingText("مرتب کردن نزولی");
 		s.ClearText("حذف مرتب کردن");
 	})
-	.DataSource(d => d.Mvc().Controller("Sections").LoadAction("Get"))
+	.DataSource(d => d.Mvc().Controller("Sections")
+		.LoadAction("Get")
+		.InsertAction("Insert")
+		.UpdateAction("Update")
+		.DeleteAction("Delete")
+		.Key("Id"))
 	.Columns(columns =>
 	{
 		columns.AddFor(m => m.Title).Caption("عنوان");

@@ -10,12 +10,12 @@ using Newtonsoft.Json;
 namespace Evaluation.Controllers
 {
 	[Route("api/[controller]/[action]")]
-	public class SectionsController : Controller
+	public class PositionsController : Controller
 	{
 		private readonly EvaluationContext _dbContext;
 		private readonly EvaluationContextProcedures _uspContext;
 
-		public SectionsController(EvaluationContext dbContext)
+		public PositionsController(EvaluationContext dbContext)
 		{
 			_dbContext = dbContext;
 			_uspContext = _dbContext.GetProcedures();
@@ -24,18 +24,18 @@ namespace Evaluation.Controllers
 		[HttpGet]
 		public async Task<object> Get(DataSourceLoadOptions loadOptions, CancellationToken cancellationToken)
 		{
-			return await DataSourceLoader.LoadAsync(_dbContext.VwSection, loadOptions, cancellationToken);
+			return await DataSourceLoader.LoadAsync(_dbContext.VwPosition, loadOptions, cancellationToken);
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> Insert(string values, CancellationToken cancellationToken)
 		{
-			var newSection = new VwSection();
-			JsonConvert.PopulateObject(values, newSection);
+			var newPosition = new VwPosition();
+			JsonConvert.PopulateObject(values, newPosition);
 
-			//TODO: validate newSection
+			//TODO: validate newPosition
 
-			await _uspContext.uspSectionInsertAsync(newSection.CenterId, newSection.Title, null, cancellationToken);
+			await _uspContext.uspPositionInsertAsync(newPosition.Title, null, cancellationToken);
 
 			return Ok();
 		}
@@ -43,12 +43,12 @@ namespace Evaluation.Controllers
 		[HttpPut]
 		public async Task<IActionResult> Update(int key, string values, CancellationToken cancellationToken)
 		{
-			var section = new VwSection();
-			JsonConvert.PopulateObject(values, section);
+			var position = new VwPosition();
+			JsonConvert.PopulateObject(values, position);
 
-			//TODO: validate section
+			//TODO: validate position
 
-			await _uspContext.uspSectionUpdateAsync(key, section.CenterId, section.Title, null, cancellationToken);
+			await _uspContext.uspPositionUpdateAsync(key, position.Title, null, cancellationToken);
 
 			return Ok();
 		}
@@ -56,7 +56,7 @@ namespace Evaluation.Controllers
 		[HttpDelete]
 		public async Task Delete(int key, CancellationToken cancellationToken)
 		{
-			await _uspContext.uspSectionDeleteAsync(key, null, cancellationToken);
+			await _uspContext.uspPositionDeleteAsync(key, null, cancellationToken);
 		}
 	}
 }

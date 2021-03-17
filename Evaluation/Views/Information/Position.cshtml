@@ -1,7 +1,6 @@
-﻿@using Evaluation.TestModels
-<h2>سمت</h2>
+﻿<h2>سمت</h2>
 
-@(Html.DevExtreme().DataGrid<TblPosition>()
+@(Html.DevExtreme().DataGrid<VwPosition>()
 	.ShowBorders(true)
 	.RtlEnabled(true)
 	.RowAlternationEnabled(true)
@@ -34,9 +33,14 @@
 		s.DescendingText("مرتب کردن نزولی");
 		s.ClearText("حذف مرتب کردن");
 	})
-	.DataSource(d => d.Array())
+	.DataSource(d => d.Mvc().Controller("Positions")
+		.LoadAction("Get")
+		.InsertAction("Insert")
+		.UpdateAction("Update")
+		.DeleteAction("Delete")
+		.Key("Id"))
 	.Columns(columns =>
 	{
-		columns.AddFor(m => m.MTitle).Caption("عنوان");
+		columns.AddFor(m => m.Title).Caption("عنوان");
 	})
 	)
