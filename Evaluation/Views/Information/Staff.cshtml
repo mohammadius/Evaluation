@@ -44,23 +44,35 @@
 		.Key("Id"))
 	.Columns(columns =>
 	{
+		columns.AddFor(m => m.Id).Caption("شماره شناسنامه").Width(120);
+
 		columns.AddFor(m => m.FirstName).Caption("نام");
 		columns.AddFor(m => m.LastName).Caption("نام خانوادگی");
-		columns.AddFor(m => m.BirthDate).Caption("تاریخ تولد").EditCellTemplate(new TemplateName("DateInputTemplate"));
-		columns.AddFor(m => m.EmploymentDate).Caption("تاریخ استخدام").EditCellTemplate(new TemplateName("DateInputTemplate"));
+
+		columns.AddFor(m => m.BirthDate).Caption("تاریخ تولد")
+			.Width(110)
+			.EditCellTemplate(new TemplateName("DateInputTemplate"));
+
+		columns.AddFor(m => m.EmploymentDate).Caption("تاریخ استخدام")
+			.Width(110)
+			.EditCellTemplate(new TemplateName("DateInputTemplate"));
+
 		columns.AddFor(m => m.CenterId).Caption("مرکز")
 			.SetCellValue("setCenterValue")
 			.Lookup(lookup => lookup
 				.DataSource(d => d.Mvc().Controller("Centers").LoadAction("Get").Key("Id"))
 				.DisplayExpr("Title")
 				.ValueExpr("Id")
-			);
+			)
+			.EditorOptions(new{ placeholder="انتخاب کنید..."});
+
 		columns.AddFor(m => m.SectionId).Caption("بخش")
 			.Lookup(lookup => lookup
 				.DataSource("getSections")
 				.DisplayExpr("Title")
 				.ValueExpr("Id")
-			);
+			)
+			.EditorOptions(new { placeholder = "انتخاب کنید..." });
 	})
 	)
 
@@ -72,7 +84,6 @@
 		.OnValueChanged("(e) => { setValue(e.value); }")
 		.Placeholder(PersianDateTime.Now.ToShortDateString())
 		.Mask("0000-00-00")
-		.MaskRules(new {X = new JS("/[0-9]/")})
 		.UseMaskedValue(true)
 		)
 }

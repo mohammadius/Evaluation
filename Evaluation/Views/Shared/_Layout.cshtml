@@ -13,11 +13,23 @@
 <div class="row">
 	<div class="col-md-3 mb-4 text-align-start">
 		<div class="shadow py-2 bg-white rounded">
+			@{
+				var path = Context.Request.Path.Value.Split('/', StringSplitOptions.RemoveEmptyEntries)[0].ToLower();
+				var accordionIndex = path switch
+				{
+					"information" => 0,
+					"question" => 1,
+					"user" => 2,
+					"report" => 4,
+					_ => 0
+				};
+			}
 			@(Html.DevExtreme().Accordion()
 				.RtlEnabled(true)
 				.AnimationDuration(200)
 				.ActiveStateEnabled(false)
 				.FocusStateEnabled(false)
+				.SelectedIndex(accordionIndex)
 				.Items(items =>
 				{
 					items.Add()
@@ -62,6 +74,7 @@
 	</div>
 	<div class="col-md-9">
 		<div class="main-container shadow p-4 bg-white rounded">
+
 			@RenderBody()
 		</div>
 	</div>

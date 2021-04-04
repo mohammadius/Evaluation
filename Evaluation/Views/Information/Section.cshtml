@@ -48,6 +48,7 @@
 				lookup.DataSource(d=>d.Mvc().Controller("Centers").LoadAction("Get").Key("Id"))
 					.DisplayExpr("Title")
 					.ValueExpr("Id")
-				);
+				)
+			.EditorOptions(new { placeholder = "انتخاب کنید..." });
 	})
 	)

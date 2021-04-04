@@ -42,8 +42,10 @@
 	.Columns(columns =>
 	{
 		columns.AddFor(m => m.Title).Caption("عنوان سوال");
+
 		columns.AddFor(m => m.Options).Caption("گزینه ها").Width(250)
 			.EditCellTemplate(new TemplateName("DropDownBoxTemplate"));
+
 		columns.AddFor(m => m.Coefficiency).Caption("ضریب").Width(70);
 	})
 	.OnRowInserting("OnRowInserting")
@@ -73,7 +75,7 @@
 		.RtlEnabled(true)
 		.Columns(c =>
 		{
-			c.Add().DataField("Option").Caption("گزینه");
+			c.Add().DataField("Option").Caption("عنوان گزینه");
 			c.Add().DataField("Value").DataType(GridColumnDataType.Number).Caption("مقدار").Width(50);
 		})
 		.Editing(e =>
