@@ -8,11 +8,23 @@ using System.Threading.Tasks;
 
 namespace Evaluation.Data
 {
-	public static class EvaluationContextProceduresExtensions
+	public partial class EvaluationContext
 	{
-		public static EvaluationContextProcedures GetProcedures(this EvaluationContext context)
+		private EvaluationContextProcedures _procedures;
+
+		public EvaluationContextProcedures Procedures
 		{
-			return new EvaluationContextProcedures(context);
+			get
+			{
+				if (_procedures is null) _procedures = new EvaluationContextProcedures(this);
+				return _procedures;
+			}
+			set { _procedures = value; }
+		}
+
+		public EvaluationContextProcedures GetProcedures()
+		{
+			return Procedures;
 		}
 	}
 
@@ -25,7 +37,8 @@ namespace Evaluation.Data
 			_context = context;
 		}
 
-		public async Task<int> uspCenterDeleteAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+		public virtual async Task<int> uspCenterDeleteAsync(int? id, OutputParameter<int> returnValue = null,
+			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
 			{
@@ -51,7 +64,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspCenterInsertAsync(string title, string address, OutputParameter<int> returnValue = null,
+		public virtual async Task<int> uspCenterInsertAsync(string title, string address, OutputParameter<int> returnValue = null,
 			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -87,7 +100,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspCenterUpdateAsync(int? id, string title, string address, OutputParameter<int> returnValue = null,
+		public virtual async Task<int> uspCenterUpdateAsync(int? id, string title, string address, OutputParameter<int> returnValue = null,
 			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -129,7 +142,8 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspPositionDeleteAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+		public virtual async Task<int> uspPositionDeleteAsync(int? id, OutputParameter<int> returnValue = null,
+			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
 			{
@@ -155,7 +169,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspPositionInsertAsync(string title, OutputParameter<int> returnValue = null,
+		public virtual async Task<int> uspPositionInsertAsync(string title, OutputParameter<int> returnValue = null,
 			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -184,7 +198,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspPositionUpdateAsync(int? id, string title, OutputParameter<int> returnValue = null,
+		public virtual async Task<int> uspPositionUpdateAsync(int? id, string title, OutputParameter<int> returnValue = null,
 			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -219,7 +233,8 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspQuestionDeleteAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+		public virtual async Task<int> uspQuestionDeleteAsync(int? id, OutputParameter<int> returnValue = null,
+			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
 			{
@@ -245,8 +260,8 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspQuestionInsertAsync(string title, string options, byte? coefficiency, OutputParameter<int> returnValue = null,
-			CancellationToken cancellationToken = default)
+		public virtual async Task<int> uspQuestionInsertAsync(string title, string options, byte? coefficiency,
+			OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
 			{
@@ -287,7 +302,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspQuestionUpdateAsync(int? id, string title, string options, byte? coefficiency,
+		public virtual async Task<int> uspQuestionUpdateAsync(int? id, string title, string options, byte? coefficiency,
 			OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -335,7 +350,8 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspSectionDeleteAsync(int? id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+		public virtual async Task<int> uspSectionDeleteAsync(int? id, OutputParameter<int> returnValue = null,
+			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
 			{
@@ -361,7 +377,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspSectionInsertAsync(int? centerId, string title, OutputParameter<int> returnValue = null,
+		public virtual async Task<int> uspSectionInsertAsync(int? centerId, string title, OutputParameter<int> returnValue = null,
 			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -396,7 +412,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspSectionQuestionDeleteAsync(int? id, OutputParameter<int> returnValue = null,
+		public virtual async Task<int> uspSectionQuestionDeleteAsync(int? id, OutputParameter<int> returnValue = null,
 			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -424,7 +440,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspSectionQuestionInsertAsync(int? sectionId, int? questionId, DateTime? startDate,
+		public virtual async Task<int> uspSectionQuestionInsertAsync(int? sectionId, int? questionId, DateTime? startDate,
 			OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -464,7 +480,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspSectionQuestionUpdateAsync(int? id, int? sectionId, int? questionId, DateTime? startDate,
+		public virtual async Task<int> uspSectionQuestionUpdateAsync(int? id, int? sectionId, int? questionId, DateTime? startDate,
 			OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -510,7 +526,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspSectionUpdateAsync(int? id, int? centerId, string title, OutputParameter<int> returnValue = null,
+		public virtual async Task<int> uspSectionUpdateAsync(int? id, int? centerId, string title, OutputParameter<int> returnValue = null,
 			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -551,7 +567,8 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspStaffDeleteAsync(string id, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+		public virtual async Task<int> uspStaffDeleteAsync(string id, OutputParameter<int> returnValue = null,
+			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
 			{
@@ -578,7 +595,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspStaffInsertAsync(string id, int? sectionId, string firstName, string lastName, DateTime? birthDate,
+		public virtual async Task<int> uspStaffInsertAsync(string id, int? sectionId, string firstName, string lastName, DateTime? birthDate,
 			DateTime? employmentDate, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -640,7 +657,125 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public async Task<int> uspStaffUpdateAsync(string id, int? sectionId, string firstName, string lastName, DateTime? birthDate,
+		public virtual async Task<int> uspStaffPositionDeleteAsync(string id, OutputParameter<int> returnValue = null,
+			CancellationToken cancellationToken = default)
+		{
+			var parameterreturnValue = new SqlParameter
+			{
+				ParameterName = "returnValue",
+				Direction = System.Data.ParameterDirection.Output,
+				SqlDbType = System.Data.SqlDbType.Int,
+			};
+
+			var sqlParameters = new[]
+			{
+				new SqlParameter
+				{
+					ParameterName = "id",
+					Size = 10,
+					Value = id ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Char,
+				},
+				parameterreturnValue,
+			};
+			var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[uspStaffPositionDelete] @id", sqlParameters,
+				cancellationToken);
+
+			returnValue?.SetValue(parameterreturnValue.Value);
+
+			return _;
+		}
+
+		public virtual async Task<int> uspStaffPositionInsertAsync(string staffId, int? positionId, DateTime? startDate,
+			OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+		{
+			var parameterreturnValue = new SqlParameter
+			{
+				ParameterName = "returnValue",
+				Direction = System.Data.ParameterDirection.Output,
+				SqlDbType = System.Data.SqlDbType.Int,
+			};
+
+			var sqlParameters = new[]
+			{
+				new SqlParameter
+				{
+					ParameterName = "staffId",
+					Size = 10,
+					Value = staffId ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Char,
+				},
+				new SqlParameter
+				{
+					ParameterName = "positionId",
+					Value = positionId ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Int,
+				},
+				new SqlParameter
+				{
+					ParameterName = "startDate",
+					Value = startDate ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Date,
+				},
+				parameterreturnValue,
+			};
+			var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[uspStaffPositionInsert] @staffId, @positionId, @startDate",
+				sqlParameters, cancellationToken);
+
+			returnValue?.SetValue(parameterreturnValue.Value);
+
+			return _;
+		}
+
+		public virtual async Task<int> uspStaffPositionUpdateAsync(string id, string staffId, int? positionId, DateTime? startDate,
+			OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+		{
+			var parameterreturnValue = new SqlParameter
+			{
+				ParameterName = "returnValue",
+				Direction = System.Data.ParameterDirection.Output,
+				SqlDbType = System.Data.SqlDbType.Int,
+			};
+
+			var sqlParameters = new[]
+			{
+				new SqlParameter
+				{
+					ParameterName = "id",
+					Size = 10,
+					Value = id ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Char,
+				},
+				new SqlParameter
+				{
+					ParameterName = "staffId",
+					Size = 10,
+					Value = staffId ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Char,
+				},
+				new SqlParameter
+				{
+					ParameterName = "positionId",
+					Value = positionId ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Int,
+				},
+				new SqlParameter
+				{
+					ParameterName = "startDate",
+					Value = startDate ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Date,
+				},
+				parameterreturnValue,
+			};
+			var _ = await _context.Database.ExecuteSqlRawAsync(
+				"EXEC @returnValue = [dbo].[uspStaffPositionUpdate] @id, @staffId, @positionId, @startDate", sqlParameters, cancellationToken);
+
+			returnValue?.SetValue(parameterreturnValue.Value);
+
+			return _;
+		}
+
+		public virtual async Task<int> uspStaffUpdateAsync(string id, int? sectionId, string firstName, string lastName, DateTime? birthDate,
 			DateTime? employmentDate, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter

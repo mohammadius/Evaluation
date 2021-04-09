@@ -8,6 +8,7 @@
    "ModelNamespace": null,
    "OutputContextPath": "Data",
    "OutputPath": "Models",
+   "ProceduresReturnList": false,
    "ProjectRootNamespace": "Evaluation",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
@@ -35,6 +36,10 @@
       },
       {
          "Name": "[dbo].[vwStaff]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[vwStaffPosition]",
          "ObjectType": 3
       },
       {
@@ -106,6 +111,18 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[uspStaffPositionDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspStaffPositionInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspStaffPositionUpdate]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[uspStaffUpdate]",
          "ObjectType": 1
       }
@@ -120,6 +137,7 @@
    "UseLegacyPluralizer": false,
    "UseNoConstructor": false,
    "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
    "UseNodaTime": false,
    "UseNullableReferences": false,
    "UseSpatial": false
