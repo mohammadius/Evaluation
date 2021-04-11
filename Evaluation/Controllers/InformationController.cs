@@ -28,5 +28,10 @@ namespace Evaluation.Controllers
 		{
 			return View();
 		}
+		
+		public IActionResult StaffPosition()
+		{
+			return View();
+		}
 	}
 }

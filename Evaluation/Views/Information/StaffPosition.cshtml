@@ -1,0 +1,77 @@
+﻿@using MD.PersianDateTime.Standard
+<h2>سمت کارمند</h2>
+
+@(Html.DevExtreme().DataGrid<VwStaffPosition>()
+	.ShowBorders(true)
+	.RtlEnabled(true)
+	.RowAlternationEnabled(true)
+	.NoDataText("بدون اطلاعات")
+	.Editing(e =>
+	{
+		e.Mode(GridEditMode.Row);
+		e.AllowAdding(true);
+		e.AllowUpdating(true);
+		e.AllowDeleting(true);
+		e.Popup(p =>
+		{
+			p.RtlEnabled(true);
+			p.CloseOnOutsideClick(true);
+		});
+
+		e.Texts(t =>
+		{
+			t.DeleteRow("حذف");
+			t.EditRow("تغییر");
+			t.AddRow("اضافه کردن");
+			t.SaveRowChanges("ثبت");
+			t.CancelRowChanges("انصراف");
+			t.ConfirmDeleteMessage("این رکورد حذف شود؟");
+		});
+	})
+	.Sorting(s =>
+	{
+		s.AscendingText("مرتب کردن سعودی");
+		s.DescendingText("مرتب کردن نزولی");
+		s.ClearText("حذف مرتب کردن");
+	})
+	.DataSource(d => d.Mvc().Controller("StaffPositions")
+		.LoadAction("Get")
+		.InsertAction("Insert")
+		.UpdateAction("Update")
+		.DeleteAction("Delete")
+		.Key("Id"))
+	.Columns(columns =>
+	{
+		columns.AddFor(m => m.StaffId).Caption("کارمند")
+			.Lookup(lookup=>
+				lookup.DataSource(d=>d.Mvc().Controller("Staffs").LoadAction("Get").Key("Id"))
+					.DisplayExpr(new JS("(staff) => staff.FirstName + ' ' + staff.LastName + ' (' + staff.Id + ')'"))
+					.ValueExpr("Id")
+			)
+			.EditorOptions(new { placeholder = "انتخاب کنید..." });
+
+		columns.AddFor(m => m.PositionId).Caption("سمت")
+			.Lookup(lookup=>
+				lookup.DataSource(d=>d.Mvc().Controller("Positions").LoadAction("Get").Key("Id"))
+					.DisplayExpr("Title")
+					.ValueExpr("Id")
+				)
+			.EditorOptions(new { placeholder = "انتخاب کنید..." });
+
+		columns.AddFor(m => m.StartDate).Caption("تاریخ استخدام")
+			.Width(110)
+			.EditCellTemplate(new TemplateName("DateInputTemplate"));
+	})
+	)
+
+@using (Html.DevExtreme().NamedTemplate("DateInputTemplate"))
+{
+	@(Html.DevExtreme().TextBox()
+		//.RtlEnabled(true)
+		.Value(new JS("value"))
+		.OnValueChanged("(e) => { setValue(e.value); }")
+		.Placeholder(PersianDateTime.Now.ToShortDateString())
+		.Mask("0000-00-00")
+		.UseMaskedValue(true)
+		)
+}
