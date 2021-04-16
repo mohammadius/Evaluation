@@ -4,17 +4,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Evaluation.Models
 {
-	public partial class VwStaffPosition
-	{
-		public int Id { get; set; }
-
-		[Required]
-		[StringLength(10)]
-		public string StaffId { get; set; }
-
-		public int PositionId { get; set; }
-
-		[StringLength(4000)]
-		public string StartDate { get; set; }
-	}
+    public partial class VwStaffPosition
+    {
+        public int Id { get; set; }
+        
+        [Required]
+        [StringLength(10)]
+        public string StaffId { get; set; }
+        
+        public int PositionId { get; set; }
+        
+        public int SectionId { get; set; }
+        
+        public int CenterId { get; set; }
+        
+        [StringLength(4000)]
+        public string StartDate { get; set; }
+    }
 }
