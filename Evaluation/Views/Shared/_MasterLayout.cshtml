@@ -70,6 +70,31 @@
 	<main role="main">
 		@RenderBody()
 	</main>
+	
+	@{
+		var errorMessage = ViewBag.ErrorMessage as string;
+		var hasError = !string.IsNullOrWhiteSpace(errorMessage);
+
+		if (hasError)
+		{
+			@(Html.DevExtreme().Toast()
+				.Message(errorMessage)
+				.Type(ToastType.Error)
+				.DisplayTime(5000)
+				.RtlEnabled(true)
+				.CloseOnClick(true)
+				.CloseOnSwipe(true)
+				.Width("auto")
+				.Position(p =>
+				{
+					p.At(HorizontalAlignment.Right, VerticalAlignment.Bottom);
+					p.My(HorizontalAlignment.Right, VerticalAlignment.Bottom);
+					p.Offset(-40, -40);
+				})
+				.Visible(true)
+				)
+		}
+	}
 
 	<footer class="footer">
 		© &nbsp; کلیه حقوق مادی و معنوی این سامانه متعلق به دانشگاه علوم پزشکی جندی شاپور اهواز می&zwnj;باشد .
