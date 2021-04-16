@@ -39,6 +39,7 @@ namespace Evaluation.Controllers
 			await _uspContext.uspStaffPositionInsertAsync(
 				newStaffPosition.StaffId,
 				newStaffPosition.PositionId,
+				newStaffPosition.SectionId,
 				PersianDateTime.Parse(newStaffPosition.StartDate).ToDateTime(),
 				null, cancellationToken);
 
@@ -56,6 +57,7 @@ namespace Evaluation.Controllers
 			await _uspContext.uspStaffPositionUpdateAsync(key,
 				staffPosition.StaffId,
 				staffPosition.PositionId,
+				staffPosition.SectionId,
 				PersianDateTime.Parse(staffPosition.StartDate).ToDateTime(),
 				null, cancellationToken);
 

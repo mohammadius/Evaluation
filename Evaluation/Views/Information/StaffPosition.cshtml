@@ -6,6 +6,8 @@
 	.RtlEnabled(true)
 	.RowAlternationEnabled(true)
 	.NoDataText("بدون اطلاعات")
+	.RemoteOperations(true)
+	.OnEditorPreparing("onEditorPreparing")
 	.Editing(e =>
 	{
 		e.Mode(GridEditMode.Row);
@@ -58,6 +60,23 @@
 				)
 			.EditorOptions(new { placeholder = "انتخاب کنید..." });
 
+		columns.AddFor(m => m.CenterId).Caption("مرکز")
+			.SetCellValue("setCenterValue")
+			.Lookup(lookup => lookup
+				.DataSource(d => d.Mvc().Controller("Centers").LoadAction("Get").Key("Id"))
+				.DisplayExpr("Title")
+				.ValueExpr("Id")
+			)
+			.EditorOptions(new { placeholder = "انتخاب کنید..." });
+
+		columns.AddFor(m => m.SectionId).Caption("بخش")
+			.Lookup(lookup => lookup
+				.DataSource("getSections")
+				.DisplayExpr("Title")
+				.ValueExpr("Id")
+			)
+			.EditorOptions(new { placeholder = "انتخاب کنید..." });
+
 		columns.AddFor(m => m.StartDate).Caption("تاریخ استخدام")
 			.Width(110)
 			.EditCellTemplate(new TemplateName("DateInputTemplate"));
@@ -74,4 +93,30 @@
 		.Mask("0000-00-00")
 		.UseMaskedValue(true)
 		)
+}
+
+@section Script
+{
+	<script type="text/javascript">
+		const onEditorPreparing = (e) => {
+			if (e.parentType === "dataRow" && e.dataField === "SectionId") {
+				e.editorOptions.disabled = (typeof e.row.data.CenterId !== "number");
+			}
+		}
+
+		const getSections = (options) => {
+			return {
+				store: DevExpress.data.AspNet.createStore({
+					key: "Id",
+					loadUrl: '@Url.Action("Get", "Sections", new {httproute = true})'
+				}),
+				filter: options.data ? ["CenterId", "=", options.data.CenterId] : null
+			};
+		}
+
+		const setCenterValue = (rowData, value) => {
+			rowData.CenterId = value;
+			rowData.SectionId = null;
+		}
+	</script>
 }

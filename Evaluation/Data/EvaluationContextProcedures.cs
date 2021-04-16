@@ -686,7 +686,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public virtual async Task<int> uspStaffPositionInsertAsync(string staffId, int? positionId, DateTime? startDate,
+		public virtual async Task<int> uspStaffPositionInsertAsync(string staffId, int? positionId, int? sectionId, DateTime? startDate,
 			OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -713,21 +713,27 @@ namespace Evaluation.Data
 				},
 				new SqlParameter
 				{
+					ParameterName = "sectionId",
+					Value = sectionId ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Int,
+				},
+				new SqlParameter
+				{
 					ParameterName = "startDate",
 					Value = startDate ?? Convert.DBNull,
 					SqlDbType = System.Data.SqlDbType.Date,
 				},
 				parameterreturnValue,
 			};
-			var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[uspStaffPositionInsert] @staffId, @positionId, @startDate",
-				sqlParameters, cancellationToken);
+			var _ = await _context.Database.ExecuteSqlRawAsync(
+				"EXEC @returnValue = [dbo].[uspStaffPositionInsert] @staffId, @positionId, @sectionId, @startDate", sqlParameters, cancellationToken);
 
 			returnValue?.SetValue(parameterreturnValue.Value);
 
 			return _;
 		}
 
-		public virtual async Task<int> uspStaffPositionUpdateAsync(string id, string staffId, int? positionId, DateTime? startDate,
+		public virtual async Task<int> uspStaffPositionUpdateAsync(string id, string staffId, int? positionId, int? sectionId, DateTime? startDate,
 			OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -761,6 +767,12 @@ namespace Evaluation.Data
 				},
 				new SqlParameter
 				{
+					ParameterName = "sectionId",
+					Value = sectionId ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Int,
+				},
+				new SqlParameter
+				{
 					ParameterName = "startDate",
 					Value = startDate ?? Convert.DBNull,
 					SqlDbType = System.Data.SqlDbType.Date,
@@ -768,7 +780,8 @@ namespace Evaluation.Data
 				parameterreturnValue,
 			};
 			var _ = await _context.Database.ExecuteSqlRawAsync(
-				"EXEC @returnValue = [dbo].[uspStaffPositionUpdate] @id, @staffId, @positionId, @startDate", sqlParameters, cancellationToken);
+				"EXEC @returnValue = [dbo].[uspStaffPositionUpdate] @id, @staffId, @positionId, @sectionId, @startDate", sqlParameters,
+				cancellationToken);
 
 			returnValue?.SetValue(parameterreturnValue.Value);
 
