@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DNTCaptcha.Core;
 using Evaluation.Models.ViewModels;
 using Evaluation.Utilities;
@@ -28,8 +27,11 @@ namespace Evaluation.Controllers
 		{
 			if (!_validatorService.HasRequestValidCaptchaEntry(Language.Persian, DisplayMode.SumOfTwoNumbers))
 			{
-				return RedirectToAction("Index");
+				ViewBag.ErrorMessage = "کد امنیتی نادرست است.";
+				return View("Index");
 			}
+			
+			//TODO: validate loginData
 
 			//TODO: login user
 			await HttpContext.SignInAsync(loginData.Username, "مدیر مرکز");
