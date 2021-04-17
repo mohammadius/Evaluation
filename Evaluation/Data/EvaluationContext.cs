@@ -5,94 +5,106 @@ using Evaluation.Models;
 
 namespace Evaluation.Data
 {
-    public partial class EvaluationContext : DbContext
-    {
-        public EvaluationContext()
-        {
-        }
+	public partial class EvaluationContext : DbContext
+	{
+		public EvaluationContext()
+		{
+		}
 
-        public EvaluationContext(DbContextOptions<EvaluationContext> options) : base(options)
-        {
-        }
+		public EvaluationContext(DbContextOptions<EvaluationContext> options) : base(options)
+		{
+		}
 
-        public virtual DbSet<VwCenter> VwCenter { get; set; }
-        public virtual DbSet<VwPosition> VwPosition { get; set; }
-        public virtual DbSet<VwQuestion> VwQuestion { get; set; }
-        public virtual DbSet<VwSection> VwSection { get; set; }
-        public virtual DbSet<VwSectionQuestion> VwSectionQuestion { get; set; }
-        public virtual DbSet<VwStaff> VwStaff { get; set; }
-        public virtual DbSet<VwStaffPosition> VwStaffPosition { get; set; }
+		public virtual DbSet<VwCenter> VwCenter { get; set; }
+		public virtual DbSet<VwLatestStaffPosition> VwLatestStaffPosition { get; set; }
+		public virtual DbSet<VwPosition> VwPosition { get; set; }
+		public virtual DbSet<VwQuestion> VwQuestion { get; set; }
+		public virtual DbSet<VwSection> VwSection { get; set; }
+		public virtual DbSet<VwSectionQuestion> VwSectionQuestion { get; set; }
+		public virtual DbSet<VwStaff> VwStaff { get; set; }
+		public virtual DbSet<VwStaffPosition> VwStaffPosition { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<VwCenter>(entity =>
-            {
-                entity.HasNoKey();
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<VwCenter>(entity =>
+			{
+				entity.HasNoKey();
 
-                entity.ToView("vwCenter");
+				entity.ToView("vwCenter");
 
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            });
+				entity.Property(e => e.Id).ValueGeneratedOnAdd();
+			});
 
-            modelBuilder.Entity<VwPosition>(entity =>
-            {
-                entity.HasNoKey();
+			modelBuilder.Entity<VwLatestStaffPosition>(entity =>
+			{
+				entity.HasNoKey();
 
-                entity.ToView("vwPosition");
+				entity.ToView("vwLatestStaffPosition");
 
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            });
+				entity.Property(e => e.StaffId)
+					.IsUnicode(false)
+					.IsFixedLength();
+			});
 
-            modelBuilder.Entity<VwQuestion>(entity =>
-            {
-                entity.HasNoKey();
+			modelBuilder.Entity<VwPosition>(entity =>
+			{
+				entity.HasNoKey();
 
-                entity.ToView("vwQuestion");
+				entity.ToView("vwPosition");
 
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            });
+				entity.Property(e => e.Id).ValueGeneratedOnAdd();
+			});
 
-            modelBuilder.Entity<VwSection>(entity =>
-            {
-                entity.HasNoKey();
+			modelBuilder.Entity<VwQuestion>(entity =>
+			{
+				entity.HasNoKey();
 
-                entity.ToView("vwSection");
+				entity.ToView("vwQuestion");
 
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            });
+				entity.Property(e => e.Id).ValueGeneratedOnAdd();
+			});
 
-            modelBuilder.Entity<VwSectionQuestion>(entity =>
-            {
-                entity.HasNoKey();
+			modelBuilder.Entity<VwSection>(entity =>
+			{
+				entity.HasNoKey();
 
-                entity.ToView("vwSectionQuestion");
-            });
+				entity.ToView("vwSection");
 
-            modelBuilder.Entity<VwStaff>(entity =>
-            {
-                entity.HasNoKey();
+				entity.Property(e => e.Id).ValueGeneratedOnAdd();
+			});
 
-                entity.ToView("vwStaff");
+			modelBuilder.Entity<VwSectionQuestion>(entity =>
+			{
+				entity.HasNoKey();
 
-                entity.Property(e => e.Id)
-                    .IsUnicode(false)
-                    .IsFixedLength();
-            });
+				entity.ToView("vwSectionQuestion");
+			});
 
-            modelBuilder.Entity<VwStaffPosition>(entity =>
-            {
-                entity.HasNoKey();
+			modelBuilder.Entity<VwStaff>(entity =>
+			{
+				entity.HasNoKey();
 
-                entity.ToView("vwStaffPosition");
+				entity.ToView("vwStaff");
 
-                entity.Property(e => e.StaffId)
-                    .IsUnicode(false)
-                    .IsFixedLength();
-            });
+				entity.Property(e => e.Id)
+					.IsUnicode(false)
+					.IsFixedLength();
+			});
 
-            OnModelCreatingPartial(modelBuilder);
-        }
+			modelBuilder.Entity<VwStaffPosition>(entity =>
+			{
+				entity.HasNoKey();
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-    }
+				entity.ToView("vwStaffPosition");
+
+				entity.Property(e => e.StaffId)
+					.IsUnicode(false)
+					.IsFixedLength();
+			});
+
+			OnModelCreatingPartial(modelBuilder);
+		}
+
+		partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+	}
 }
