@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using DNTCaptcha.Core;
 using Evaluation.Models.ViewModels;
 using Evaluation.Utilities;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +13,12 @@ namespace Evaluation.Controllers
 	public class HomeController : Controller
 	{
 		private readonly IDNTCaptchaValidatorService _validatorService;
+		private readonly IValidator<LoginViewModel> _loginViewModelValidator;
 
-		public HomeController(IDNTCaptchaValidatorService validatorService)
+		public HomeController(IDNTCaptchaValidatorService validatorService, IValidator<LoginViewModel> loginViewModelValidator)
 		{
 			_validatorService = validatorService;
+			_loginViewModelValidator = loginViewModelValidator;
 		}
 
 		public IActionResult Index()
@@ -23,15 +27,20 @@ namespace Evaluation.Controllers
 		}
 
 		[HttpPost, ValidateAntiForgeryToken]
-		public async Task<IActionResult> SignIn(LoginViewModel loginData)
+		public async Task<IActionResult> SignIn(LoginViewModel loginData, CancellationToken cancellationToken)
 		{
 			if (!_validatorService.HasRequestValidCaptchaEntry(Language.Persian, DisplayMode.SumOfTwoNumbers))
 			{
 				ViewBag.ErrorMessage = "کد امنیتی نادرست است.";
 				return View("Index");
 			}
-			
-			//TODO: validate loginData
+
+			var validationResult = await _loginViewModelValidator.ValidateAsync(loginData, cancellationToken);
+			if (!validationResult.IsValid)
+			{
+				ViewBag.ErrorMessage = validationResult.Errors[0].ErrorMessage;
+				return View("Index");
+			}
 
 			//TODO: login user
 			await HttpContext.SignInAsync(loginData.Username, "مدیر مرکز");

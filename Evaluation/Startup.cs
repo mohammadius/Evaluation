@@ -1,11 +1,7 @@
 using System.Linq;
-using System.Reflection;
 using DNTCaptcha.Core;
 using Evaluation.Data;
-using Evaluation.Models.Validators;
-using Evaluation.Models.ViewModels;
 using Evaluation.Utilities;
-using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +9,6 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace Evaluation
