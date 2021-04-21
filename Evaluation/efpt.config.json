@@ -43,6 +43,10 @@
          "ObjectType": 3
       },
       {
+         "Name": "[dbo].[vwStaffPassword]",
+         "ObjectType": 3
+      },
+      {
          "Name": "[dbo].[vwStaffPosition]",
          "ObjectType": 3
       },
@@ -112,6 +116,18 @@
       },
       {
          "Name": "[dbo].[uspStaffInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspStaffPasswordDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspStaffPasswordInsert]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspStaffPasswordUpdate]",
          "ObjectType": 1
       },
       {
