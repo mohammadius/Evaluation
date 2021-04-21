@@ -22,6 +22,7 @@ namespace Evaluation.Data
 		public virtual DbSet<VwSection> VwSection { get; set; }
 		public virtual DbSet<VwSectionQuestion> VwSectionQuestion { get; set; }
 		public virtual DbSet<VwStaff> VwStaff { get; set; }
+		public virtual DbSet<VwStaffPassword> VwStaffPassword { get; set; }
 		public virtual DbSet<VwStaffPosition> VwStaffPosition { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -87,6 +88,21 @@ namespace Evaluation.Data
 				entity.ToView("vwStaff");
 
 				entity.Property(e => e.Id)
+					.IsUnicode(false)
+					.IsFixedLength();
+			});
+
+			modelBuilder.Entity<VwStaffPassword>(entity =>
+			{
+				entity.HasNoKey();
+
+				entity.ToView("vwStaffPassword");
+
+				entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+				entity.Property(e => e.Password).IsUnicode(false);
+
+				entity.Property(e => e.StaffId)
 					.IsUnicode(false)
 					.IsFixedLength();
 			});

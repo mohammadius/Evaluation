@@ -657,6 +657,107 @@ namespace Evaluation.Data
 			return _;
 		}
 
+		public virtual async Task<int> uspStaffPasswordDeleteAsync(string staffId, OutputParameter<int> returnValue = null,
+			CancellationToken cancellationToken = default)
+		{
+			var parameterreturnValue = new SqlParameter
+			{
+				ParameterName = "returnValue",
+				Direction = System.Data.ParameterDirection.Output,
+				SqlDbType = System.Data.SqlDbType.Int,
+			};
+
+			var sqlParameters = new[]
+			{
+				new SqlParameter
+				{
+					ParameterName = "staffId",
+					Size = 10,
+					Value = staffId ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Char,
+				},
+				parameterreturnValue,
+			};
+			var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[uspStaffPasswordDelete] @staffId", sqlParameters,
+				cancellationToken);
+
+			returnValue?.SetValue(parameterreturnValue.Value);
+
+			return _;
+		}
+
+		public virtual async Task<int> uspStaffPasswordInsertAsync(string staffId, string pass, OutputParameter<int> returnValue = null,
+			CancellationToken cancellationToken = default)
+		{
+			var parameterreturnValue = new SqlParameter
+			{
+				ParameterName = "returnValue",
+				Direction = System.Data.ParameterDirection.Output,
+				SqlDbType = System.Data.SqlDbType.Int,
+			};
+
+			var sqlParameters = new[]
+			{
+				new SqlParameter
+				{
+					ParameterName = "staffId",
+					Size = 10,
+					Value = staffId ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Char,
+				},
+				new SqlParameter
+				{
+					ParameterName = "pass",
+					Size = 512,
+					Value = pass ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.VarChar,
+				},
+				parameterreturnValue,
+			};
+			var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[uspStaffPasswordInsert] @staffId, @pass", sqlParameters,
+				cancellationToken);
+
+			returnValue?.SetValue(parameterreturnValue.Value);
+
+			return _;
+		}
+
+		public virtual async Task<int> uspStaffPasswordUpdateAsync(string staffId, string pass, OutputParameter<int> returnValue = null,
+			CancellationToken cancellationToken = default)
+		{
+			var parameterreturnValue = new SqlParameter
+			{
+				ParameterName = "returnValue",
+				Direction = System.Data.ParameterDirection.Output,
+				SqlDbType = System.Data.SqlDbType.Int,
+			};
+
+			var sqlParameters = new[]
+			{
+				new SqlParameter
+				{
+					ParameterName = "staffId",
+					Size = 10,
+					Value = staffId ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.Char,
+				},
+				new SqlParameter
+				{
+					ParameterName = "pass",
+					Size = 512,
+					Value = pass ?? Convert.DBNull,
+					SqlDbType = System.Data.SqlDbType.VarChar,
+				},
+				parameterreturnValue,
+			};
+			var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[uspStaffPasswordUpdate] @staffId, @pass", sqlParameters,
+				cancellationToken);
+
+			returnValue?.SetValue(parameterreturnValue.Value);
+
+			return _;
+		}
+
 		public virtual async Task<int> uspStaffPositionDeleteAsync(int? id, OutputParameter<int> returnValue = null,
 			CancellationToken cancellationToken = default)
 		{
