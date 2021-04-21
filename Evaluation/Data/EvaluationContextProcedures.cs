@@ -657,7 +657,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public virtual async Task<int> uspStaffPositionDeleteAsync(string id, OutputParameter<int> returnValue = null,
+		public virtual async Task<int> uspStaffPositionDeleteAsync(int? id, OutputParameter<int> returnValue = null,
 			CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -672,9 +672,8 @@ namespace Evaluation.Data
 				new SqlParameter
 				{
 					ParameterName = "id",
-					Size = 10,
 					Value = id ?? Convert.DBNull,
-					SqlDbType = System.Data.SqlDbType.Char,
+					SqlDbType = System.Data.SqlDbType.Int,
 				},
 				parameterreturnValue,
 			};
@@ -733,7 +732,7 @@ namespace Evaluation.Data
 			return _;
 		}
 
-		public virtual async Task<int> uspStaffPositionUpdateAsync(string id, string staffId, int? positionId, int? sectionId, DateTime? startDate,
+		public virtual async Task<int> uspStaffPositionUpdateAsync(int? id, string staffId, int? positionId, int? sectionId, DateTime? startDate,
 			OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
 		{
 			var parameterreturnValue = new SqlParameter
@@ -748,9 +747,8 @@ namespace Evaluation.Data
 				new SqlParameter
 				{
 					ParameterName = "id",
-					Size = 10,
 					Value = id ?? Convert.DBNull,
-					SqlDbType = System.Data.SqlDbType.Char,
+					SqlDbType = System.Data.SqlDbType.Int,
 				},
 				new SqlParameter
 				{

@@ -47,7 +47,7 @@ namespace Evaluation.Controllers
 		}
 
 		[HttpPut]
-		public async Task<IActionResult> Update(string key, string values, CancellationToken cancellationToken)
+		public async Task<IActionResult> Update(int key, string values, CancellationToken cancellationToken)
 		{
 			var staffPosition = new VwStaffPosition();
 			JsonConvert.PopulateObject(values, staffPosition);
@@ -65,7 +65,7 @@ namespace Evaluation.Controllers
 		}
 
 		[HttpDelete]
-		public async Task Delete(string key, CancellationToken cancellationToken)
+		public async Task Delete(int key, CancellationToken cancellationToken)
 		{
 			await _uspContext.uspStaffPositionDeleteAsync(key, null, cancellationToken);
 		}
