@@ -4,6 +4,7 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Evaluation.Data;
 using Evaluation.Models;
+using Evaluation.Utilities;
 using MD.PersianDateTime.Standard;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -45,6 +46,11 @@ namespace Evaluation.Controllers
 				PersianDateTime.Parse(newStaff.EmploymentDate).ToDateTime(),
 				null, cancellationToken);
 
+			await _uspContext.uspStaffPasswordInsertAsync(
+				newStaff.Id,
+				PasswordUtility.HashPassword("test123"),
+				null, cancellationToken);
+
 			return Ok();
 		}
 
@@ -70,6 +76,7 @@ namespace Evaluation.Controllers
 		public async Task Delete(string key, CancellationToken cancellationToken)
 		{
 			await _uspContext.uspStaffDeleteAsync(key, null, cancellationToken);
+			await _uspContext.uspStaffPasswordDeleteAsync(key, null, cancellationToken);
 		}
 	}
 }
