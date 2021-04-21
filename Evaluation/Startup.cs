@@ -60,6 +60,7 @@ namespace Evaluation
 			{
 				options.LoginPath = "/";
 				options.LogoutPath = "/Home/Logout";
+				options.AccessDeniedPath = "/Home/AccessDenied";
 				options.Cookie.IsEssential = true;
 				options.SlidingExpiration = true;
 			});

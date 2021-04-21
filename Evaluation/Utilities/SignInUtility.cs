@@ -8,13 +8,15 @@ namespace Evaluation.Utilities
 {
 	public static class SignInUtility
 	{
-		public static async Task SignInAsync(this HttpContext httpContext, string userId, string userRole)
+		public static async Task SignInAsync(this HttpContext httpContext, string id, string role, string section)
 		{
 			var identity = new ClaimsIdentity(new[]
-			{
-				new Claim(ClaimTypes.Name, userId),
-				new Claim(ClaimTypes.Role, userRole)
-			}, CookieAuthenticationDefaults.AuthenticationScheme);
+				{
+					new Claim(ClaimTypes.Role, role),
+					new Claim(MyClaimTypes.Id, id),
+					new Claim(MyClaimTypes.Section, section),
+					new Claim(MyClaimTypes.DisplayRole, $"{role} {section}")
+				}, CookieAuthenticationDefaults.AuthenticationScheme);
 
 			var principal = new ClaimsPrincipal(identity);
 

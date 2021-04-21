@@ -6,11 +6,13 @@ using Evaluation.Data;
 using Evaluation.Models;
 using Evaluation.Utilities;
 using MD.PersianDateTime.Standard;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Evaluation.Controllers
 {
+	[Authorize]
 	[Route("api/[controller]/[action]")]
 	public class StaffsController : Controller
 	{

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Evaluation.Controllers
 {
+	[Authorize(Roles = "ادمین")]
 	public class InformationController : Controller
 	{
 		public IActionResult Index()

@@ -4,11 +4,13 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Evaluation.Data;
 using Evaluation.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Evaluation.Controllers
 {
+	[Authorize]
 	[Route("api/[controller]/[action]")]
 	public class PositionsController : Controller
 	{

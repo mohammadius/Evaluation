@@ -1,5 +1,5 @@
 ﻿@using MD.PersianDateTime.Standard
-@using System.Security.Claims
+@using Evaluation.Utilities
 
 <!DOCTYPE html>
 <html dir="rtl" lang="fa">
@@ -32,7 +32,7 @@
 	@if (User.Identity.IsAuthenticated)
 	{
 		<div class="info">
-			<div>@User.FindFirst(ClaimTypes.Role).Value، خوش آمدید</div>
+			<div>@User.FindFirst(MyClaimTypes.DisplayRole).Value، خوش آمدید</div>
 			<div>امروز @PersianDateTime.Now.ToLongDateString()</div>
 		</div>
 	}
