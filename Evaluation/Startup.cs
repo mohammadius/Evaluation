@@ -53,14 +53,14 @@ namespace Evaluation
 				//options.UseCustomFont(Path.Combine(_env.WebRootPath, "fonts", "IranSans.ttf"));
 			});
 
-			services.AddDbContext<EvaluationContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("EvaluationContext")));
+			services.AddDbContext<ScoreContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("ScoreContext")));
 
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 			{
 				options.LoginPath = "/";
-				options.LogoutPath = "/Home/Logout";
-				options.AccessDeniedPath = "/Home/AccessDenied";
+				options.LogoutPath = "/logout";
+				options.AccessDeniedPath = "/accessdenied";
 				options.Cookie.IsEssential = true;
 				options.SlidingExpiration = true;
 			});

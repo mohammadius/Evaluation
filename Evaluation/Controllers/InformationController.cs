@@ -3,20 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Evaluation.Controllers
 {
-	[Authorize(Roles = "ادمین")]
+	[Authorize]
 	public class InformationController : Controller
 	{
 		public IActionResult Index()
 		{
-			return RedirectToAction("Center");
+			return RedirectToAction("Employee");
 		}
 		
-		public IActionResult Center()
-		{
-			return View();
-		}
-		
-		public IActionResult Section()
+		public IActionResult Employee()
 		{
 			return View();
 		}
@@ -26,12 +21,12 @@ namespace Evaluation.Controllers
 			return View();
 		}
 		
-		public IActionResult Staff()
+		public IActionResult Manager()
 		{
 			return View();
 		}
 		
-		public IActionResult StaffPosition()
+		public IActionResult Question()
 		{
 			return View();
 		}

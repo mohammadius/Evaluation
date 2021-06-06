@@ -11,6 +11,7 @@
 		e.AllowAdding(true);
 		e.AllowUpdating(true);
 		e.AllowDeleting(true);
+		e.UseIcons(true);
 		e.Popup(p =>
 		{
 			p.RtlEnabled(true);
@@ -33,7 +34,7 @@
 		s.DescendingText("مرتب کردن نزولی");
 		s.ClearText("حذف مرتب کردن");
 	})
-	.DataSource(d => d.Mvc().Controller("QuestionDetails")
+	.DataSource(d => d.Mvc().Controller("Questions")
 		.LoadAction("Get")
 		.InsertAction("Insert")
 		.UpdateAction("Update")
@@ -46,7 +47,7 @@
 		columns.AddFor(m => m.Options).Caption("گزینه ها").Width(250)
 			.EditCellTemplate(new TemplateName("DropDownBoxTemplate"));
 
-		columns.AddFor(m => m.Coefficiency).Caption("ضریب").Width(70);
+		columns.AddFor(m => m.Coef).Caption("ضریب").Width(70);
 	})
 	.OnRowInserting("OnRowInserting")
 	.OnEditingStart("OnEditingStart")
@@ -128,8 +129,8 @@
 		}
 
 		const OnRowUpdating = (e) => {
-			if (!e.newData.Coefficient) {
-				e.newData.Coefficient = e.oldData.Coefficient;
+			if (!e.newData.Coef) {
+				e.newData.Coef = e.oldData.Coef;
 			}
 
 			if (!e.newData.Title) {
@@ -142,7 +143,7 @@
 		}
 
 		const OptionsTable_OnRowUpdated = (component) => {
-			var setValue = component.option('setValue');
+			const setValue = component.option('setValue');
 
 			setValue({
 				Options: optionsValues.map(data => { return `${data.Option}=${data.Value}` }).join(";")

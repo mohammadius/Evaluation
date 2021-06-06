@@ -1,6 +1,6 @@
-﻿<h2>بخش</h2>
+﻿<h2>مدیر</h2>
 
-@(Html.DevExtreme().DataGrid<VwSection>()
+@(Html.DevExtreme().DataGrid<VwManager>()
 	.ShowBorders(true)
 	.RtlEnabled(true)
 	.RowAlternationEnabled(true)
@@ -9,8 +9,8 @@
 	{
 		e.Mode(GridEditMode.Row);
 		e.AllowAdding(true);
-		e.AllowUpdating(true);
 		e.AllowDeleting(true);
+		e.UseIcons(true);
 		e.Popup(p =>
 		{
 			p.RtlEnabled(true);
@@ -20,7 +20,6 @@
 		e.Texts(t =>
 		{
 			t.DeleteRow("حذف");
-			t.EditRow("تغییر");
 			t.AddRow("اضافه کردن");
 			t.SaveRowChanges("ثبت");
 			t.CancelRowChanges("انصراف");
@@ -33,21 +32,19 @@
 		s.DescendingText("مرتب کردن نزولی");
 		s.ClearText("حذف مرتب کردن");
 	})
-	.DataSource(d => d.Mvc().Controller("Sections")
+	.DataSource(d => d.Mvc().Controller("Managers")
 		.LoadAction("Get")
 		.InsertAction("Insert")
-		.UpdateAction("Update")
 		.DeleteAction("Delete")
 		.Key("Id"))
 	.Columns(columns =>
 	{
-		columns.AddFor(m => m.Title).Caption("عنوان");
-		columns.AddFor(m => m.CenterId).Caption("مرکز")
-			.Lookup(lookup=>
-				lookup.DataSource(d=>d.Mvc().Controller("Centers").LoadAction("Get").Key("Id"))
-					.DisplayExpr("Title")
+		columns.AddFor(m => m.EmployeeId).Caption("کارمند")
+			.Lookup(lookup =>
+				lookup.DataSource(d => d.Mvc().Controller("Employees").LoadAction("Get").Key("Id"))
+					.DisplayExpr(new JS("(e) => `${e.FirstName} ${e.LastName} (${e.Nid})`"))
 					.ValueExpr("Id")
-				)
-			.EditorOptions(new { placeholder = "انتخاب کنید..." });
+			)
+			.EditorOptions(new {placeholder = "انتخاب کنید..."});
 	})
 	)

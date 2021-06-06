@@ -1,6 +1,6 @@
 ﻿{
    "CodeGenerationMode": 1,
-   "ContextClassName": "EvaluationContext",
+   "ContextClassName": "ScoreContext",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
@@ -8,18 +8,17 @@
    "ModelNamespace": null,
    "OutputContextPath": "Data",
    "OutputPath": "Models",
-   "ProceduresReturnList": false,
    "ProjectRootNamespace": "Evaluation",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[vwCenter]",
+         "Name": "[dbo].[vwEmployee]",
          "ObjectType": 3
       },
       {
-         "Name": "[dbo].[vwLatestStaffPosition]",
+         "Name": "[dbo].[vwManager]",
          "ObjectType": 3
       },
       {
@@ -31,35 +30,23 @@
          "ObjectType": 3
       },
       {
-         "Name": "[dbo].[vwSection]",
-         "ObjectType": 3
-      },
-      {
-         "Name": "[dbo].[vwSectionQuestion]",
-         "ObjectType": 3
-      },
-      {
-         "Name": "[dbo].[vwStaff]",
-         "ObjectType": 3
-      },
-      {
-         "Name": "[dbo].[vwStaffPassword]",
-         "ObjectType": 3
-      },
-      {
-         "Name": "[dbo].[vwStaffPosition]",
-         "ObjectType": 3
-      },
-      {
-         "Name": "[dbo].[uspCenterDelete]",
+         "Name": "[dbo].[uspEmployeeDelete]",
          "ObjectType": 1
       },
       {
-         "Name": "[dbo].[uspCenterInsert]",
+         "Name": "[dbo].[uspEmployeeInsert]",
          "ObjectType": 1
       },
       {
-         "Name": "[dbo].[uspCenterUpdate]",
+         "Name": "[dbo].[uspEmployeeUpdate]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspManagerDelete]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspManagerInsert]",
          "ObjectType": 1
       },
       {
@@ -85,69 +72,9 @@
       {
          "Name": "[dbo].[uspQuestionUpdate]",
          "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspSectionDelete]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspSectionInsert]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspSectionQuestionDelete]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspSectionQuestionInsert]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspSectionQuestionUpdate]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspSectionUpdate]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspStaffDelete]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspStaffInsert]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspStaffPasswordDelete]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspStaffPasswordInsert]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspStaffPasswordUpdate]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspStaffPositionDelete]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspStaffPositionInsert]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspStaffPositionUpdate]",
-         "ObjectType": 1
-      },
-      {
-         "Name": "[dbo].[uspStaffUpdate]",
-         "ObjectType": 1
       }
    ],
-   "UiHint": "DESKTOP-GH84BQK.Evaluation",
+   "UiHint": "DESKTOP-GH84BQK.Score",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,
    "UseDbContextSplitting": false,
@@ -160,5 +87,6 @@
    "UseNoObjectFilter": false,
    "UseNodaTime": false,
    "UseNullableReferences": false,
+   "UseSchemaFolders": false,
    "UseSpatial": false
 }

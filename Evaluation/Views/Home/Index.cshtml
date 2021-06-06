@@ -1,8 +1,4 @@
-﻿@{
-	Layout = "_MasterLayout";
-}
-
-@section Style
+﻿@section Style
 {
 	<environment include="Development">
 		<link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
@@ -33,6 +29,10 @@
 			pointer-events: none;
 			color: #1E1E1E;
 		}
+		
+		#dntCaptchaRefreshButton {
+			display: none;
+		}
 	</style>
 }
 
@@ -49,7 +49,6 @@
 				  @class = "form-control",
 				  placeholder = "1234567890",
 				  required = true,
-				  pattern = "^[1-9][\\d]{9}$"
 			  })
 			</div>
 			<div class="form-group">

@@ -8,10 +8,7 @@ namespace Evaluation.Models.Validators
 		public LoginViewModelValidator()
 		{
 			RuleFor(lvm => lvm.Username)
-				.NotEmpty()
-				.Length(10)
-				.Matches("^[1-9][\\d]{9}$")
-				.WithMessage("نام کاربری باید کد ملی باشد.");
+				.NotEmpty();
 			
 			RuleFor(lvm => lvm.Password)
 				.NotEmpty()
