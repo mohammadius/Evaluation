@@ -32,6 +32,10 @@
 		s.DescendingText("مرتب کردن نزولی");
 		s.ClearText("حذف مرتب کردن");
 	})
+	.FilterRow(filterRow => filterRow
+		.Visible(true)
+		.ApplyFilter(GridApplyFilterMode.Auto)
+	)
 	.DataSource(d => d.Mvc().Controller("Managers")
 		.LoadAction("Get")
 		.InsertAction("Insert")
