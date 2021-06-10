@@ -38,6 +38,7 @@
 	.FilterRow(filterRow => filterRow
 		.Visible(true)
 		.ApplyFilter(GridApplyFilterMode.Auto)
+		.ShowAllText("همه")
 	)
 	.DataSource(d => d.Mvc().Controller("Employees")
 		.LoadAction("Get")
@@ -70,7 +71,7 @@
 					.DisplayExpr("EmployeeDisplay")
 					.ValueExpr("Id")
 			)
-			.EditorOptions(new {placeholder = "انتخاب کنید..."});
+			.EditorOptions(new {placeholder = "انتخاب کنید...", acceptCustomValue = true });
 
 		columns.AddFor(m => m.ManagerLevel1).Caption("مدیر سطح 1")
 			.Lookup(lookup =>

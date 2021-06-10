@@ -37,6 +37,7 @@
 	.FilterRow(filterRow => filterRow
 		.Visible(true)
 		.ApplyFilter(GridApplyFilterMode.Auto)
+		.ShowAllText("همه")
 	)
 	.DataSource(d => d.Mvc().Controller("Positions")
 		.LoadAction("Get")

@@ -6,9 +6,7 @@ namespace Evaluation.Models
 	public partial class VwManager
 	{
 		public int Id { get; set; }
-
 		public int? EmployeeId { get; set; }
-
 		[StringLength(114)]
 		public string EmployeeDisplay { get; set; }
 	}

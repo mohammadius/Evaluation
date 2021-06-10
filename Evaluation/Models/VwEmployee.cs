@@ -6,34 +6,21 @@ namespace Evaluation.Models
 {
 	public partial class VwEmployee
 	{
-		[Column("id")]
 		public int Id { get; set; }
-
 		[Column("NID")]
 		[StringLength(10)]
 		public string Nid { get; set; }
-
-		[Column("lastName")]
 		[StringLength(50)]
 		public string LastName { get; set; }
-
-		[Column("firstname")]
 		[StringLength(50)]
 		public string FirstName { get; set; }
-
-		[Column("positionId")]
 		public int? PositionId { get; set; }
-
 		[StringLength(4000)]
 		public string HireDate { get; set; }
-
-		[Column("managerLevel0")]
 		public int? ManagerLevel0 { get; set; }
-
-		[Column("managerLevel1")]
 		public int? ManagerLevel1 { get; set; }
-
-		[Column("managerLevel2")]
 		public int? ManagerLevel2 { get; set; }
+		[StringLength(114)]
+		public string EmployeeDisplay { get; set; }
 	}
 }

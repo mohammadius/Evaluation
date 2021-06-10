@@ -6,15 +6,12 @@ namespace Evaluation.Models
 	public partial class VwQuestion
 	{
 		public int Id { get; set; }
-
 		[Required]
 		[StringLength(1024)]
 		public string Title { get; set; }
-
 		[Required]
 		[StringLength(512)]
 		public string Options { get; set; }
-
 		public int Coef { get; set; }
 	}
 }

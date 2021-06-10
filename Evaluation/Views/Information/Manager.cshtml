@@ -35,6 +35,7 @@
 	.FilterRow(filterRow => filterRow
 		.Visible(true)
 		.ApplyFilter(GridApplyFilterMode.Auto)
+		.ShowAllText("همه")
 	)
 	.DataSource(d => d.Mvc().Controller("Managers")
 		.LoadAction("Get")
@@ -46,9 +47,13 @@
 		columns.AddFor(m => m.EmployeeId).Caption("کارمند")
 			.Lookup(lookup =>
 				lookup.DataSource(d => d.Mvc().Controller("Employees").LoadAction("Get").Key("Id"))
-					.DisplayExpr(new JS("(e) => `${e.FirstName} ${e.LastName} (${e.Nid})`"))
+					.DisplayExpr("EmployeeDisplay")
 					.ValueExpr("Id")
 			)
 			.EditorOptions(new {placeholder = "انتخاب کنید..."});
 	})
 	)
+
+@* @(Html.DevExtreme().SelectBox()
+ 	.DataSource(new[] {"reza", "mohammad", "zahra", "ahmad"})
+	 .AcceptCustomValue()) *@

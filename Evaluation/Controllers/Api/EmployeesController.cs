@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
@@ -40,7 +41,7 @@ namespace Evaluation.Controllers.Api
 				newEmployee.FirstName,
 				newEmployee.LastName,
 				newEmployee.PositionId,
-				PersianDateTime.Parse(newEmployee.HireDate).ToDateTime(),
+				string.IsNullOrWhiteSpace(newEmployee.HireDate) ? (DateTime?) null : PersianDateTime.Parse(newEmployee.HireDate).ToDateTime(),
 				newEmployee.ManagerLevel0,
 				newEmployee.ManagerLevel1,
 				newEmployee.ManagerLevel2);
@@ -64,7 +65,7 @@ namespace Evaluation.Controllers.Api
 				employee.FirstName,
 				employee.LastName,
 				employee.PositionId,
-				PersianDateTime.Parse(employee.HireDate).ToDateTime(),
+				string.IsNullOrWhiteSpace(employee.HireDate) ? (DateTime?) null : PersianDateTime.Parse(employee.HireDate).ToDateTime(),
 				employee.ManagerLevel0,
 				employee.ManagerLevel1,
 				employee.ManagerLevel2);

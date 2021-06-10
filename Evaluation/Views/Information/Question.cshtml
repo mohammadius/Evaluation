@@ -37,6 +37,7 @@
 	.FilterRow(filterRow => filterRow
 		.Visible(true)
 		.ApplyFilter(GridApplyFilterMode.Auto)
+		.ShowAllText("همه")
 	)
 	.DataSource(d => d.Mvc().Controller("Questions")
 		.LoadAction("Get")
@@ -92,7 +93,7 @@
 		})
 		.Scrolling(s => s.Mode(GridScrollingMode.Virtual))
 		.RemoteOperations(true)
-		.OnRowUpdated("() => { OptionsTable_OnRowUpdated(component) }")
+		.OnInitialized("() => { OptionsTable_OnInitialized(component) }")
 		)
 }
 
@@ -146,7 +147,7 @@
 			e.cancel = false;
 		}
 
-		const OptionsTable_OnRowUpdated = (component) => {
+		const OptionsTable_OnInitialized = (component) => {
 			const setValue = component.option('setValue');
 
 			setValue({
